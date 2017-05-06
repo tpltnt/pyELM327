@@ -288,7 +288,7 @@ class ELM327(object):
 		but doesn't check it's supported by the ECU - you'll get "NO DATA"
 		if that's the case.
 		"""
-		global pidlist # Nasty, but I don't know a better way yet
+		global pidlist  # Nasty, but I don't know a better way yet
 
 		if reqPID not in pidlist[0x01]:
 			raise KeyError('Unsupported PID 0x%02x' % reqPID)
