@@ -1,4 +1,4 @@
-# pyELM327 - A Python interface to Generic OBD2 Devices
+# pyELM327 - A Python 3 interface to Generic OBD2 Devices
 
 Frustrated with the quality of free OBD2 software, I decided to write my own.
 This involved learning how the ELM327 interface works, and in the meantime I
@@ -17,7 +17,7 @@ available. At this stage, that consists of:
 
 * ELM327 device - Generic devices vary vastly in quality, so compatibility
 is not guaranteed.
-* Python 2.7 or later (3.x support not guaranteed)
+* Python 3.x
 * [pySerial](http://pyserial.sourceforge.net/)
 
 ## Using

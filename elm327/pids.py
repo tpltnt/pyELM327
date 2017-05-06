@@ -3,6 +3,9 @@ Python module presenting an API to an ELM327 serial interface
 (C) 2015 Jamie Fraser <fwaggle@fwaggle.org>
 http://github.com/fwaggle/pyELM327
 
+Python 3 port (C) 2017 by tpltnt <tpltnt.github@dropcut.net>
+https://github.com/tpltnt/pyELM327
+
 Please see License.txt and Readme.md.
 """
 
