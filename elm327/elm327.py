@@ -169,7 +169,7 @@ class ELM327(object):
 			self.expect('>')
 
 		self.__ser.flushOutput()
-		self.__ser.write(data + '\r')
+		self.__ser.write(str.encode(data + '\r'))
 
 	def expect(self, pattern, timeout=None):
 		"""
@@ -199,7 +199,7 @@ class ELM327(object):
 			# check for new data on serial port
 			n = self.__ser.inWaiting()
 			if n > 0:
-				self.__readBuffer += self.__ser.read(n)
+				self.__readBuffer += self.__ser.read(n).decode("ascii")
 
 			# examine buffer
 			if self.__readBuffer.count('\r') > 0:
