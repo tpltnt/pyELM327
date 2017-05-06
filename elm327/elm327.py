@@ -124,11 +124,13 @@ class ELM327(object):
 
 	@property
 	def baudrate(self):
-	    return self.__ser.baudrate
+                """the baud rate"""
+                return self.__ser.baudrate
 
 	@baudrate.setter
 	def baudrate(self, rate):
-		self.__ser.baudrate = rate
+                """retrieve the baud rate"""
+                self.__ser.baudrate = rate
 
 	def close(self):
 		self.__ser.close()
