@@ -38,4 +38,4 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
 					elm.reset(1) # warm reset, keep baud rate.
 					time.sleep(1) # wait 1 second before trying again.
 				else:
-					print e
+					print(e)

@@ -159,11 +159,11 @@ class ELM327(object):
 		"""
 
 		if self.__debug:
-			print (">>> %s" % data)
+			print(">>> %s" % data)
 
 		if nowait == None:
 			if self.__debug:
-				print "DEBUG: Waiting for '>'"
+				print("DEBUG: Waiting for '>'")
 			self.expect('>')
 
 		self.__ser.flushOutput()
@@ -186,13 +186,13 @@ class ELM327(object):
 		start = time.time()
 
 		if self.__debug:
-			print "Expect: '%s'" % pattern
+			print("Expect: '{0}'".format(pattern))
 
 		while True:
 			# check if timeout is up
 			if timeout:
 				if ((time.time() - start) * 1000) > timeout:
-					return 'NO DATA'
+					return('NO DATA')
 
 			# check for new data on serial port
 			n = self.__ser.inWaiting()
@@ -268,10 +268,10 @@ class ELM327(object):
 
 				for flag in range(31, -1, -1): # abomination!
 					enabled = flags & (1 << (flag))
-					if enabled and (32-flag) + i in pidlist[01]:
+					if enabled and (32-flag) + i in pidlist[0o1]:
 						supported[("%02X" % ((32-flag) + i))] = 1
 					elif enabled:
-						print "ADD PID %02X" % ((32-flag) + i)
+						print("ADD PID %02X" % ((32-flag) + i))
 
 		return supported
 
@@ -355,7 +355,7 @@ class ELM327(object):
 		count = int(m.group(1), 16) - cel
 		cel = cel / 0x80
 
-		print ("CEL: %d DTC Count: %d" % (cel, count))
+		print("CEL: %d DTC Count: %d" % (cel, count))
 
 		if count < 1:
 			return
