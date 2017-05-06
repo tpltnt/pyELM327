@@ -197,7 +197,7 @@ class ELM327(object):
 			# check if timeout is up
 			if timeout:
 				if ((time.time() - start) * 1000) > timeout:
-					return('NO DATA')
+					return 'NO DATA'
 
 			# check for new data on serial port
 			n = self.__ser.inWaiting()
