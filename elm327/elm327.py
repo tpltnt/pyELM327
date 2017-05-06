@@ -33,7 +33,7 @@ class ELM327(object):
 
 	def reset(self, warm=0):
 		"""
-		Try to put the ELM327 device into a known state, by resetting it then 
+		Try to put the ELM327 device into a known state, by resetting it then
 		turning off echos.
 
 		If the "warm" parameter is non-zero, don't do a full reset - useful for
@@ -73,11 +73,11 @@ class ELM327(object):
 		Note that you can't specify 9600 baud - that requires a divisor higher than FF.
 
 		If your device starts in 9600 baud (a hardware pin setting), simply init the ELM327
-		class with baudrate=9600 and if higher baud rates don't work reset it with ATZ. 
+		class with baudrate=9600 and if higher baud rates don't work reset it with ATZ.
 		If it starts in 38400 baud, and you don't get a stable connection, throw the device
 		away and buy a better one.
 		"""
-		
+
 		# Select appropriate divisor - higher rates may cause a '?' response from ELM
 		if rate == 38400:
 			divisor = '68'
@@ -107,7 +107,7 @@ class ELM327(object):
 		if result != 'OK':
 			raise Exception('Couldn\'t set Baud Rate Divisor (AT BRD)')
 		self.baudrate = rate
-		
+
 		# we should get ELM327 at the new baud rate if it worked.
 		# it might take a bit though, normally about 1.2s, wait 5s instead.
 		result = self.expect('^ELM327', 5000)
@@ -289,7 +289,7 @@ class ELM327(object):
 		if that's the case.
 		"""
 		global pidlist # Nasty, but I don't know a better way yet
-		
+
 		if reqPID not in pidlist[0x01]:
 			raise KeyError('Unsupported PID 0x%02x' % reqPID)
 
@@ -311,7 +311,7 @@ class ELM327(object):
 				raise Exception('Malformed response')
 
 			val = pid['Value'](m)
-		
+
 		return {'pid': reqPID,
 				'value': val,
 				'name': pid['Name'],
