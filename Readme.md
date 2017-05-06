@@ -28,7 +28,7 @@ pyELM327 supports Python's Context Manager, so you can do stuff like this:
 import elm327
 
 with elm327.ELM327(2) as elm:
-	print elm.fetchBatteryLevel()
+	print(elm.fetchBatteryLevel())
 ```
 
 The argument 2 is the port, per the pySerial specifications (COM3 in this
