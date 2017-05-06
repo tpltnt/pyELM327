@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 
 import time, sys
 sys.path.append(".")
@@ -13,7 +13,7 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
 	The fetchDTCs() function's output is subject to change, eventually it
 	will return a list of the DTCs and it will be up to the caller to print.
 	"""
-	print elm.fetchDTCs()
+	print(elm.fetchDTCs())
 
 
 	"""
