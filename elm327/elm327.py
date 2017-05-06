@@ -7,7 +7,9 @@ Please see License.txt and Readme.md.
 """
 
 import serial, time, pprint, re
-import pids
+import sys
+sys.path.append('.')
+from elm327 import pids
 
 pidlist = pids.__pids
 
