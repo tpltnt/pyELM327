@@ -9,7 +9,10 @@ https://github.com/tpltnt/pyELM327
 Please see License.txt and Readme.md.
 """
 
-import serial, time, pprint, re
+import time
+import pprint
+import re
+import serial
 import sys
 sys.path.append('.')
 from elm327 import pids
