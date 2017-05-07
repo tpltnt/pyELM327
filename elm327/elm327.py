@@ -31,10 +31,19 @@ class ELM327(object):
         self.__debug = debug
         self.id = None
         self.__readBuffer = ''
+        self.__ser = serial.Serial()
 
-        self.__ser = serial.Serial(
-            port, baud, timeout=5, rtscts=rtscts, xonxoff=xonxoff)
-        self.reset()
+        try:
+            self.__ser = serial.Serial(
+                port, baud, timeout=5, rtscts=rtscts, xonxoff=xonxoff)
+            self.reset()
+        except serial.serialutil.SerialException as e:
+            if 'No such file or directory' in str(e):
+                port = str(e).split("'")[-2]
+                print("no device at {0} ... is it plugged in?".format(port))
+            else:
+                print(e)
+            sys.exit(1)
 
     def reset(self, warm=0):
         """
@@ -129,12 +138,12 @@ class ELM327(object):
 
     @property
     def baudrate(self):
-        """the baud rate"""
+        """get baud rate"""
         return self.__ser.baudrate
 
     @baudrate.setter
     def baudrate(self, rate):
-        """retrieve the baud rate"""
+        """set baud rate"""
         self.__ser.baudrate = rate
 
     def close(self):
