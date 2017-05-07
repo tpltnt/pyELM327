@@ -12,8 +12,8 @@ Please see License.txt and Readme.md.
 import time
 import pprint
 import re
-import serial
 import sys
+import serial
 sys.path.append('.')
 from elm327 import pids
 
