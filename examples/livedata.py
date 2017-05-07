@@ -1,9 +1,17 @@
 #! /usr/bin/env python3
 
+import argparse
 import time, sys
 sys.path.append(".")
 sys.path.append("..")
 from elm327 import elm327, pids
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--scroll",
+                    help="scroll output (instead refreshing)",
+                    action="store_true")
+args = parser.parse_args()
 
 with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
 	# Attempt to set a higher baud. Note that this will, when the script is
@@ -25,8 +33,9 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
 		exit()
 
 	while True:
-		print("\033[6;3H")
-		# Iteratively fetch all PIDs in Mode 01
+                if args.verbose:
+                        print("\033[6;3H")
+                # Iteratively fetch all PIDs in Mode 01
 		for spid in supported:
 			pid = int(spid, 16)
 			try:
