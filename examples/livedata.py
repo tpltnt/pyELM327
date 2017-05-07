@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+"""
+Query and display live data from the CAN bus.
+"""
 
 import argparse
 import datetime
