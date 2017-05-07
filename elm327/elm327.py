@@ -45,13 +45,14 @@ class ELM327(object):
                 print(e)
             sys.exit(1)
 
-    def reset(self, warm=0):
+    def reset(self, warm=False):
         """
         Try to put the ELM327 device into a known state, by resetting it then
         turning off echos.
 
-        If the "warm" parameter is non-zero, don't do a full reset - useful for
-        keeping custom baud rates and so on.
+        :param warm: do warm reset (keep custom baud rates etc.)
+        :type warm: bool
+        :raises: RuntimeError
         """
 
         # 'ATZ' will, depending on the status of the device's echo setting
@@ -64,21 +65,21 @@ class ELM327(object):
             self.write('ATZ', nowait=1)
         self.id = self.expect('^ELM327', 2000)  # Expecting 'ELM327 v1.5'
         if self.id[0:6] != 'ELM327':
-            raise Exception(
+            raise RuntimeError(
                 'Didn\'t get expected header from device - not responding?')
 
         # turn off echos
         self.write('ATE0')
         result = self.expect('^OK', 200)  # should be 'OK'
         if result != 'OK':
-            raise Exception('Turning off Echo (AT E0) failed.')
+            raise RuntimeError('Turning off Echo (AT E0) failed.')
 
         # Set protocol == AUTO for a sensible default
         # My holden is then AUTO, SAE J1850 VPW
         self.write('ATSP 0')
         result = self.expect('^OK', 200)
         if result != 'OK':
-            raise Exception('Setting Protocol to AUTO failed.')
+            raise RuntimeError('Setting Protocol to AUTO failed.')
 
     def tryBaudrate(self, rate=38400):
         """
