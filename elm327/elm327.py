@@ -391,10 +391,10 @@ class ELM327(object):
         # print m.group(1)
 
         """
-		NOTE: I don't actually know if the last three digits of the DTC
-		are to be interpreted as decimals or HEX, and the ELM327 datasheet
-		is ambiguous. Assuming the former for the time being.
-		"""
+        NOTE: I don't actually know if the last three digits of the DTC
+        are to be interpreted as decimals or HEX, and the ELM327 datasheet
+        is ambiguous. Assuming the former for the time being.
+        """
 
         dtcs = re.findall('([A-Z0-9]{2} [A-Z0-9]{2}) ', m.group(1))
         ret = []
