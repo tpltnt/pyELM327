@@ -45,6 +45,7 @@ class ELM327(object):
                 print(e)
             sys.exit(1)
 
+
     def reset(self, warm=False):
         """
         Try to put the ELM327 device into a known state, by resetting it then
@@ -80,6 +81,7 @@ class ELM327(object):
         result = self.expect('^OK', 200)
         if result != 'OK':
             raise RuntimeError('Setting Protocol to AUTO failed.')
+
 
     def tryBaudrate(self, rate=38400):
         """
@@ -137,18 +139,22 @@ class ELM327(object):
             # guess it didn't work.
             raise Exception('Baud rate change failed - didn\'t receive header')
 
+
     @property
     def baudrate(self):
         """get baud rate"""
         return self.__ser.baudrate
+
 
     @baudrate.setter
     def baudrate(self, rate):
         """set baud rate"""
         self.__ser.baudrate = rate
 
+
     def close(self):
         self.__ser.close()
+
 
     def fetchProtocol(self):
         """
@@ -158,6 +164,7 @@ class ELM327(object):
         self.write('ATDP')
         result = self.expect('^(.+)$', 200)
         return result
+
 
     def empty(self):
         """
@@ -169,11 +176,14 @@ class ELM327(object):
         self.__ser.flushInput()
         self.__readBuffer = '>'  # kludge, I can't find a noop in the ELM327 commandset
 
+
     def __enter__(self):
         return self
 
+
     def __exit__(self, exception_type, exception_value, traceback):
         self.close()
+
 
     def write(self, data, nowait=None):
         """
@@ -193,6 +203,7 @@ class ELM327(object):
 
         self.__ser.flushOutput()
         self.__ser.write(str.encode(data + '\r'))
+
 
     def expect(self, pattern, timeout=None):
         """
@@ -259,6 +270,7 @@ class ELM327(object):
             # wait 10ms and try again
             time.sleep(0.01)
 
+
     def fetchBatteryLevel(self):
         """
         Fetch the battery level from the ELM327.
@@ -266,6 +278,7 @@ class ELM327(object):
         self.write('AT RV')
         result = self.expect('^[0-9\.]+V', 5000)
         return result
+
 
     def fetchSupportedPIDsLive(self):
         """
@@ -300,6 +313,7 @@ class ELM327(object):
                         print("ADD PID %02X" % ((32-flag) + i))
 
         return supported
+
 
     def fetchLiveData(self, reqPID):
         """
@@ -337,6 +351,7 @@ class ELM327(object):
                 'value': val,
                 'name': pid['Name'],
                 'units': pid['Units']}
+
 
     def fetchDTCs(self):
         """
@@ -414,6 +429,7 @@ class ELM327(object):
                 ret.append("%s%s" % (classes[cls], dtc[1:].replace(' ', '')))
 
         return ret
+
 
     def clearDTCs(self, confirm=0):
         """
