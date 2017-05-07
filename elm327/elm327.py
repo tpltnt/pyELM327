@@ -191,18 +191,23 @@ class ELM327(object):
         self.close()
 
 
-    def write(self, data, nowait=None):
+    def write(self, data, nowait=False):
         """
         Send raw data to the ELM327. For most features this shouldn't be necessary.
 
-        If nowait is non-zero, don't wait for a > prompt to appear in the buffer,
+        If nowait is True, don't wait for a > prompt to appear in the buffer,
         just send immediately. Useful for resetting the device.
+
+        :param data: data to write
+        :type data: str
+        :param nowait: skip prompt in buffer
+        :type nowait: bool
         """
 
         if self.__debug:
             print(">>> %s" % data)
 
-        if nowait is None:
+        if nowait:
             if self.__debug:
                 print("DEBUG: Waiting for '>'")
             self.expect('>')
