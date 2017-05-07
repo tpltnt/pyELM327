@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import argparse
+import datetime
 import time
 import sys
 sys.path.append(".")
@@ -41,7 +42,7 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
         exit(1)
 
     while True:
-        if args.verbose:
+        if args.scroll:
             print("\033[6;3H")
         # Iteratively fetch all PIDs in Mode 01
         for spid in supported:
@@ -49,8 +50,8 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
             try:
                 res = elm.fetchLiveData(pid)
                 if res:
-                    print("%s: %s %s" %
-                          (res['name'], res['value'], res['units']))
+                    print("%s - %s: %s %s" %
+                          (str(datetime.datetime.utcnow()), res['name'], res['value'], res['units']))
             except Exception as e:
                 if e == 'STOPPED':
                     elm.reset(1)  # warm reset, keep baud rate.
