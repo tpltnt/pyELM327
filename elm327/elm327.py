@@ -162,8 +162,10 @@ class ELM327(object):
 
     def fetchProtocol(self):
         """
-        Describe the Protocol used by the ELM327, most of the time this will return AUTO
+        Describe the protocol used by the ELM327, most of the time this will return AUTO
         for no good reason.
+
+        :returns: str
         """
         self.write('ATDP')
         result = self.expect('^(.+)$', 200)
