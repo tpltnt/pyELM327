@@ -323,11 +323,16 @@ class ELM327(object):
 
     def fetchLiveData(self, reqPID):
         """
-        Fetch Live Data at the requested PID from ECU.
+        Fetch live data at the requested PID from ECU.
 
         Will raise an exception if the PID is unsupported by the library,
         but doesn't check it's supported by the ECU - you'll get "NO DATA"
         if that's the case.
+
+        :param reqPID: PID to fetch data for from ECU
+        :type reqPID: int
+        :returns: dict
+        :raises: KeyError
         """
         global pidlist  # Nasty, but I don't know a better way yet
 
