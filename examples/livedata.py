@@ -30,7 +30,7 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
     # polling the PIDs at.
     # elm.tryBaudrate(500000)
 
-    print("Device reports as: %s @ %d bps" % (elm.id, elm.baudrate))
+    print("Device reports as: {0} @ {1} bps".format(elm.id, elm.baudrate))
 
     try:
         supported = elm.fetchSupportedPIDsLive()
@@ -53,8 +53,9 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
             try:
                 res = elm.fetchLiveData(pid)
                 if res:
-                    print("%s - %s: %s %s" %
-                          (str(datetime.datetime.utcnow()), res['name'], res['value'], res['units']))
+                    print("{0} - {1}: {2} {3}".format(datetime.datetime.utcnow(),
+                                                      res['name'], res['value'],
+                                                      res['units']))
             except Exception as e:
                 if e == 'STOPPED':
                     elm.reset(1)  # warm reset, keep baud rate.
