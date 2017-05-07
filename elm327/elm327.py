@@ -202,7 +202,7 @@ class ELM327(object):
         if self.__debug:
             print(">>> %s" % data)
 
-        if nowait == None:
+        if nowait is None:
             if self.__debug:
                 print("DEBUG: Waiting for '>'")
             self.expect('>')
@@ -343,12 +343,12 @@ class ELM327(object):
         # Test Data
         #result = '41 1C 01 '
 
-        if result == None:
+        if result is None:
             val = 'NO DATA'
         else:
             # Apply the pattern to the response
             m = re.match(pid['Pattern'], result)
-            if m == None or m.group(0) == None:
+            if m is None or m.group(0) is None:
                 raise Exception('Malformed response')
 
             val = pid['Value'](m)
@@ -391,11 +391,11 @@ class ELM327(object):
         # Test data
         #result = '41 01 82 07 65 04 '
 
-        if result == None:
+        if result is None:
             return 'NO DATA'
 
         m = re.match('^41 01 ([A-Z0-9]{2})', result)
-        if m == None or m.group(0) == None:
+        if m is None or m.group(0) is None:
             raise Exception('Malformed response')
 
         cel = int(m.group(1), 16) & 0x80
@@ -416,7 +416,7 @@ class ELM327(object):
         pprint.pprint(result)
 
         m = re.match('^43 (([A-Z0-9]{2} [A-Z0-9]{2} )+)', result)
-        if m == None or m.group(0) == None:
+        if m is None or m.group(0) is None:
             return
 
         # print m.group(1)
