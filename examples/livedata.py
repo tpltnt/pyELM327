@@ -28,10 +28,17 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
 
     print("Device reports as: %s @ %d bps" % (elm.id, elm.baudrate))
 
-    supported = elm.fetchSupportedPIDsLive()
-    if supported == None:
-        elm.write('ATZ')
-        exit()
+    try:
+        supported = elm.fetchSupportedPIDsLive()
+        if supported == None:
+            elm.write('ATZ')
+            exit()
+    except Exception as e:
+        if 'UNABLE TO CONNECT' == str(e):
+            print('no connection ... is the device plugged in?')
+        else:
+            print(e)
+        exit(1)
 
     while True:
         if args.verbose:
