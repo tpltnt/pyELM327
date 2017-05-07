@@ -94,6 +94,10 @@ class ELM327(object):
         class with baudrate=9600 and if higher baud rates don't work reset it with ATZ.
         If it starts in 38400 baud, and you don't get a stable connection, throw the device
         away and buy a better one.
+
+        :param rate: baudrate for PC connection
+        :type rate: int
+        :raises: Exception
         """
 
         # Select appropriate divisor - higher rates may cause a '?' response
