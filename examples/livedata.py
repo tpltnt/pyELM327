@@ -45,7 +45,7 @@ with elm327.ELM327('/dev/ttyUSB0', debug=0) as elm:
         exit(1)
 
     while True:
-        if args.scroll:
+        if not args.scroll:
             print("\033[6;3H")
         # Iteratively fetch all PIDs in Mode 01
         for spid in supported:
